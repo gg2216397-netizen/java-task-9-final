@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form with Local Storage</title>
+</head>
+<body>
+
+  <h2>Student Form</h2>
+
+  <form id="studentForm">
+    Name: <input type="text" id="name" required><br><br>
+    Email: <input type="email" id="email" required><br><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <h3>Stored Data</h3>
+  <p id="result"></p>
+
+  <script>
+    const form = document.getElementById("studentForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+
+      const student = {
+        name: name,
+        email: email
+      };
+
+      localStorage.setItem("studentData", JSON.stringify(student));
+
+      document.getElementById("result").textContent =
+        "Saved " + name + " - " + email;
+
+      form.reset();
+    });
+
+
+    const savedData = localStorage.getItem("studentData");
+    if (savedData) {
+      const data = JSON.parse(savedData);
+      document.getElementById("result").textContent =
+        "Saved " + data.name + " - " + data.email;
+    }
+  </script>
+
+</body>
+</html>
